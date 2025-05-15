@@ -1,0 +1,134 @@
+{% extends "layout.html" %}
+
+{% block title %}Heart Predict{% endblock title %}
+
+{% block logo %}HeartCare{% endblock logo %}
+
+{% block first-div %}
+<h1>Dự đoán bệnh tim</h1>
+<p>Nhập thông tin sức khỏe của bạn để đánh giá nguy cơ mắc bệnh tim. Công cụ này sử dụng mô hình học máy để dự đoán khả năng mắc bệnh tim dựa trên các chỉ số y tế.</p>
+<p>Chi tiết mô hình <a href= "#">tại đây</a></p>
+{% endblock first-div %}
+
+{% block form-place %}
+<h2>Điền thông tin cá nhân và sức khỏe của bạn</h2>
+<hr>
+<p>Vui lòng cung cấp thông tin chính xác để có kết quả dự đoán tốt nhất</p>
+<form action="" method="POST" class="form-container">
+    {% csrf_token %}
+    <div class="form-grid">
+        <div class="form-group">
+            <label for="name">Họ và tên :</label>
+            <input type="text" id="name" name="name" required min="1" max="55">
+            <div class="helper-text">Nhập họ và tên của bạn</div>
+        </div>
+
+        <div class="form-group">
+            <label for="age">Tuổi:</label>
+            <input type="number" id="age" name="age" required min="1" max="120">
+            <div class="helper-text">Nhập tuổi của bạn</div>
+        </div>
+
+        <div class="form-group">
+            <label for="sex">Giới tính:</label>
+            <select id="sex" name="sex">
+                <option value="">--Chọn giới tính--</option>
+                <option value="0">Nữ</option>
+                <option value="1">Nam</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="cp">Loại đau ngực:</label>
+            <select id="cp" name="cp">
+                <option value="">--Chọn loại đau ngực</option>
+                <option value="0">Đau thắt ngực điển hình</option>
+                <option value="1">Đau thắt ngực không điển hình</option>
+                <option value="2">Đau không do tim</option>
+                <option value="3">Không có triệu chứng</option>
+            </select>
+            <div class="helper-text">Chọn loại đau ngực đang gặp phải</div>
+        </div>
+
+        <div class="form-group">
+            <label for="trestbps">Huyết áp khi nghỉ (mm Hg):</label>
+            <input type="number" id="trestbps" name="trestbps" required min="50" max="250">
+            <div class="helper-text">Huyết áp tâm thu khi nghỉ ngơi</div>
+        </div>
+
+        <div class="form-group">
+            <label for="restecg">Kết quả điện tâm đồ khi nghỉ ngơi:</label>
+            <select id="restecg" name="restecg" required>
+                <option value="">-- Chọn kết quả --</option>
+                <option value="0">Bình thường</option>
+                <option value="1">Có bất thường sóng ST-T</option>
+                <option value="2">Phì đại thất trái</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="thalach">Nhịp tim tối đa:</label>
+            <input type="number" id="thalach" name="thalach" required min="60" max="220">
+            <div class="helper-text">Nhịp tim tối đa đạt được</div>
+        </div>
+        
+        <div class="form-group">
+            <label for="exang">Đau thắt ngực do tập thể dục:</label>
+            <select id="exang" name="exang" required>
+                <option value="">-- Chọn --</option>
+                <option value="1">Có</option>
+                <option value="0">Không</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="oldpeak">Độ chênh ST do tập thể dục:</label>
+            <input type="number" id="oldpeak" name="oldpeak" required step="0.1" min="0" max="10">
+            <div class="helper-text">Độ chênh ST do tập thể dục so với khi nghỉ ngơi</div>
+        </div>
+        
+        <div class="form-group">
+            <label for="slope">Độ dốc đoạn ST tập thể dục:</label>
+            <select id="slope" name="slope" required>
+                <option value="">-- Chọn --</option>
+                <option value="0">Đi lên</option>
+                <option value="1">Phẳng</option>
+                <option value="2">Đi xuống</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="ca">Số mạch máu chính:</label>
+            <select id="ca" name="ca" required>
+                <option value="">-- Chọn --</option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+            <div class="helper-text">Số lượng mạch máu chính</div>
+        </div>
+        
+        <div class="form-group">
+            <label for="thal">Thalassemia:</label>
+            <select id="thal" name="thal" required>
+                <option value="">-- Chọn --</option>
+                <option value="1">Bình thường</option>
+                <option value="2">Khiếm khuyết cố định</option>
+                <option value="3">Khiếm khuyết có thể đảo ngược</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="dial">Đái tháo đường:</label>
+            <select id="dial" name="dial" required>
+                <option value="">-- Chọn --</option>
+                <option value="1">Có</option>
+                <option value="0">Không</option>
+            </select>
+        </div>
+    </div>
+    <button type="submit" class="btn">Dự đoán</button>
+</form>
+        
+{% endblock form-place %}
